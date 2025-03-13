@@ -52,6 +52,6 @@ CREATE TABLE backup_history (
     start_time TIMESTAMPTZ NOT NULL,
     end_time TIMESTAMPTZ NULL,
     status VARCHAR(50) NOT NULL CHECK (status IN ('진행중', '완료', '실패', '건너뜀')),
-    file_id UUID NOT NULL,
+    file_id BIGINT NOT NULL,
     CONSTRAINT fk_backup_history_file FOREIGN KEY (file_id) REFERENCES binary_contents (id) ON DELETE CASCADE
 );
