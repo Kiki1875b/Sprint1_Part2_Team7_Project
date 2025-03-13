@@ -16,6 +16,7 @@ CREATE TABLE binary_contents (
     updated_at TIMESTAMPTZ NULL
 );
 
+
 CREATE TABLE employees (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     department_id BIGINT NOT NULL,
@@ -32,6 +33,7 @@ CREATE TABLE employees (
     CONSTRAINT fk_employees_binary_content FOREIGN KEY (binary_content_id) REFERENCES binary_contents (id) ON DELETE SET NULL
 );
 
+
 CREATE TABLE employee_history (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     employee_number VARCHAR(50) NOT NULL,
@@ -42,6 +44,7 @@ CREATE TABLE employee_history (
     created_at TIMESTAMPTZ NOT NULL,
     CONSTRAINT fk_employee_history_employee FOREIGN KEY (employee_number) REFERENCES employees (employee_number) ON SET NULL
 );
+
 
 CREATE TABLE backup_history (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
