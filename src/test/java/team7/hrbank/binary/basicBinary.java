@@ -1,0 +1,52 @@
+package team7.hrbank.binary;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+import team7.hrbank.domain.binary.*;
+import team7.hrbank.domain.employee.Employee;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.*;
+
+@SpringBootTest
+public class basicBinary {
+
+
+    @Autowired
+    private BinaryContentService binaryContentService;
+    @Autowired
+    private BinaryContentRepository binaryContentRepository;
+
+    @Autowired
+    private LocalBinaryContentStorage localBinaryContentStorage;
+
+    @Transactional
+    @Test
+    void save(){
+        // given
+        byte[] testBytes = "test".getBytes();
+        BinaryContentDto binaryContentDto = new BinaryContentDto("test.txt", "text/plain", 4L, testBytes);
+        System.out.println("binaryContentDto는 = " + binaryContentDto);
+
+        // when
+        BinaryContent savedBinaryContent = binaryContentService.save(binaryContentDto);
+        Optional<BinaryContent> binaryContent = binaryContentRepository.findById(savedBinaryContent.getId());
+
+        // then
+        assertThat(binaryContent).isPresent();
+        assertThat(savedBinaryContent.getFileName()).isEqualTo("test.txt");
+        assertThat(savedBinaryContent.getFileType()).isEqualTo("text/plain");
+        assertThat(savedBinaryContent.getFileSize()).isEqualTo(4L);
+    }
+
+
+    //        public record BinaryContentDto(
+//                String fileName,
+//                String fileType,
+//                Long fileSize,
+//                byte[] bytes)
+}

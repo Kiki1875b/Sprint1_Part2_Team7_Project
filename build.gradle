@@ -23,13 +23,27 @@ repositories {
 	mavenCentral()
 }
 
+compileJava {
+	options.compilerArgs += [
+			'-Amapstruct.suppressGeneratorTimestamp=true',   // 생성 코드에 타임스탬프 추가 방지
+			'-Amapstruct.suppressGeneratorVersionInfoComment=true',  // 생성 코드에 버전 정보 주석 추가 방지
+			'-Amapstruct.verbose=true',   // MapStruct의 주요 동작 로그 출력
+			"-Amapstruct.defaultComponentModel=spring" // Spring 환경이라면 추가
+	]
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "org.mapstruct:mapstruct:1.6.3"
+
 	compileOnly 'org.projectlombok:lombok'
+
+	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor "org.mapstruct:mapstruct-processor:1.6.3"
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.postgresql:postgresql'
-	annotationProcessor 'org.projectlombok:lombok'
+	testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.6.3"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
