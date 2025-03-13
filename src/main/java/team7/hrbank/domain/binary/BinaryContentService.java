@@ -21,10 +21,10 @@ public class BinaryContentService {
     // 호출하는 레이어에서 할 것 (직원 레이어)
     // Optional<BinaryContentDto> binaryContentDto = binaryMapper.convertFileToBinaryContent(file);
     // binaryContentDto.ifPresent((dto)->{ BinaryContentService.save ~~ });
+    // + 확장자 체크 (동영상, pdf 등은 프로필로 불가능)
 
     public BinaryContent save(BinaryContentDto dto) {
         BinaryContent savedBinaryContent = binaryContentRepository.save(binaryMapper.toEntity(dto));
-        log.info("Saved binary content: {}", savedBinaryContent);
         localBinaryContentStorage.put(dto.bytes(), savedBinaryContent.getId());
         return savedBinaryContent;
     }
