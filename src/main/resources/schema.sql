@@ -48,10 +48,10 @@ CREATE TABLE employee_history (
 
 CREATE TABLE backup_history (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    operator INET NOT NULL,
+    worker INET NOT NULL,
     start_time TIMESTAMPTZ NOT NULL,
     end_time TIMESTAMPTZ NULL,
     status VARCHAR(50) NOT NULL CHECK (status IN ('진행중', '완료', '실패', '건너뜀')),
     file_id BIGINT NOT NULL,
-    CONSTRAINT fk_backup_history_file FOREIGN KEY (file_id) REFERENCES binary_contents (id) ON DELETE CASCADE
+    CONSTRAINT fk_backup_history_file FOREIGN KEY (file_id) REFERENCES binary_contents (id) ON DELETE SET NULL
 );
