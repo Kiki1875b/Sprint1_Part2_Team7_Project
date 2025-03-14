@@ -18,4 +18,5 @@ public class BinaryContent extends BaseEntity { // 임시로 BaseEntity 상속(�
     private String fileName;
     private String fileType;
     private Long fileSize;
+
 }
