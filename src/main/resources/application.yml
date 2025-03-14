@@ -5,6 +5,11 @@ spring:
     password: 1234
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
     open-in-view: false
+
+
+hrbank:
+  storage:
+    local.root-path: "C:\\hrbank-storage"
