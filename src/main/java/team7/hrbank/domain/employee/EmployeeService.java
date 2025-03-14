@@ -3,14 +3,15 @@ package team7.hrbank.domain.employee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import team7.hrbank.common.dto.PageResponse;
 import team7.hrbank.domain.binary.BinaryContent;
 import team7.hrbank.domain.binary.BinaryContentService;
-import team7.hrbank.domain.binary.dto.BinaryContentDto;
+import team7.hrbank.domain.employee.dto.CursorPageResponseEmployeeDto;
 import team7.hrbank.domain.employee.dto.EmployeeCreateRequest;
 import team7.hrbank.domain.employee.dto.EmployeeDto;
 import team7.hrbank.domain.employee.dto.EmployeeUpdateRequest;
 
-import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -47,15 +48,25 @@ public class EmployeeService {
     }
 
     // 직원 목록 조회
+    public PageResponse<EmployeeDto> findAll() {
+
+        return null;
+    }
 
     // 직원 상세 조회
+    public EmployeeDto findById(Long id) {
+
+        Employee employee = employeeRepository.findById(id).orElseThrow();  // TODO: null일 경우 예외 처리
+
+        return EmployeeDto.fromEntity(employee);
+    }
 
     // 직원 수정
     public EmployeeDto updateById(Long id, EmployeeUpdateRequest request, MultipartFile profile) {
 
         // TODO: ChangeLog에 수정 이력 저장
 
-        Employee employee = employeeRepository.findById(id).orElseThrow();  // TODO: 예외처리
+        Employee employee = employeeRepository.findById(id).orElseThrow();  // TODO: null일 경우 예외처리
 
         // TODO: departmentId 수정 로직 추가
 
@@ -74,6 +85,8 @@ public class EmployeeService {
         if (request.status() != null) {
             employee.updateStatus(request.status());
         }
+
+        // save() 시 파일 저장 오류 발생으로 주석 처리
 //        if (profile != null) {
 //            BinaryContent binaryContent = profileProcess(profile);
 //            employee.updateProfile(binaryContent);
@@ -87,7 +100,11 @@ public class EmployeeService {
     }
 
     // 직원 삭제
+    public void deleteById(Long id) {
+        employeeRepository.deleteById(id);
+    }
 
+    // save() 시 파일 저장 오류 발생으로 주석 처리
 //    // 프로필 사진 가공
 //    private BinaryContent profileProcess(MultipartFile profile) {
 //        try {

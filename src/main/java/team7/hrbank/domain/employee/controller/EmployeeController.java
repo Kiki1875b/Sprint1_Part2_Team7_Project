@@ -1,4 +1,4 @@
-package team7.hrbank.domain.employee;
+package team7.hrbank.domain.employee.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import team7.hrbank.domain.employee.EmployeeService;
+import team7.hrbank.domain.employee.EmployeeStatus;
 import team7.hrbank.domain.employee.dto.EmployeeCreateRequest;
 import team7.hrbank.domain.employee.dto.EmployeeDto;
 import team7.hrbank.domain.employee.dto.EmployeeUpdateRequest;
@@ -59,12 +61,12 @@ public class EmployeeController {
 
     // 직원 상세 조회
     @GetMapping("/{id}")
-    public ResponseEntity<String> readById(@PathVariable Long id) {
+    public ResponseEntity<EmployeeDto> readById(@PathVariable Long id) {
 
         // 조회 로직
+        EmployeeDto employeeDto = employeeService.findById(id);
 
-        // TODO: ResponseEntity<EmployeeDto> 반환으로 수정
-        return ResponseEntity.ok("직원 상세 조회 성공");
+        return ResponseEntity.ok(employeeDto);
     }
 
     // 직원 수정
@@ -73,7 +75,7 @@ public class EmployeeController {
                                          @RequestPart(value = "employee") EmployeeUpdateRequest request,
                                          @RequestPart(value = "profile", required = false) MultipartFile profile) {
 
-        // 직원 수정
+        // 직원 수정 로직
         EmployeeDto employeeDto = employeeService.updateById(id, request, profile);
 
         return ResponseEntity.ok(employeeDto);
@@ -84,6 +86,7 @@ public class EmployeeController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
 
         // 삭제 로직
+        employeeService.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }

@@ -32,7 +32,7 @@ public class EmployeeDto {
                 employee.getPosition(),
                 employee.getHireDate(),
                 employee.getStatus(),
-                employee.getProfile().getId()
+                employee.getProfile() != null ? employee.getProfile().getId() : null
         );
     }
 }
