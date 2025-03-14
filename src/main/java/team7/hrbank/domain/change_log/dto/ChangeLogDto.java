@@ -1,6 +1,6 @@
 package team7.hrbank.domain.change_log.dto;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import team7.hrbank.domain.change_log.entity.ChangeLogType;
 
 public record ChangeLogDto(
@@ -9,6 +9,6 @@ public record ChangeLogDto(
     ChangeLogType type,
     String memo,
     String ipAddress,
-    LocalDateTime at
+    Instant at
 ) {
 }
