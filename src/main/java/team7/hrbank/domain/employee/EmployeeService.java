@@ -1,9 +1,7 @@
-package team7.hrbank.domain.employee.service;
+package team7.hrbank.domain.employee;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import team7.hrbank.domain.employee.entity.Employee;
-import team7.hrbank.domain.employee.repository.EmployeeRepository;
 import team7.hrbank.domain.employee.dto.EmployeeCreateRequest;
 import team7.hrbank.domain.employee.dto.EmployeeDto;
 import team7.hrbank.domain.employee.dto.EmployeeUpdateRequest;

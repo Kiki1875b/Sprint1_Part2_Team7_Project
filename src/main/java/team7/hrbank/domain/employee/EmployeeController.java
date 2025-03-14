@@ -1,4 +1,4 @@
-package team7.hrbank.domain.employee.controller;
+package team7.hrbank.domain.employee;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import team7.hrbank.domain.employee.entity.EmployeeStatus;
 import team7.hrbank.domain.employee.dto.EmployeeCreateRequest;
 import team7.hrbank.domain.employee.dto.EmployeeDto;
 import team7.hrbank.domain.employee.dto.EmployeeUpdateRequest;
-import team7.hrbank.domain.employee.service.EmployeeService;
 
 import java.time.LocalDate;
 

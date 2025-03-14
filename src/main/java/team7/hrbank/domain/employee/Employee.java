@@ -1,15 +1,18 @@
-package team7.hrbank.domain.employee.entity;
+package team7.hrbank.domain.employee;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 import team7.hrbank.domain.base.BaseEntity;
+import team7.hrbank.domain.binary.BinaryContent;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -27,10 +30,12 @@ public class Employee extends BaseEntity {
 
     // <<-- 임시 테스트용
     @Column(name = "department_id", nullable = false)
-    private int departmentId = 1;
-    @Column(name = "binary_content_id")
-    private int profileImageId = 1;
+    private Long departmentId = 1L;
     // -->>
+
+    @OneToOne
+    @JoinColumn(name = "binary_content_id")
+    private BinaryContent profile;
 
     @Column(name = "employee_number", unique = true, nullable = false)
     private String employeeNumber;  // 사원번호

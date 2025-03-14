@@ -20,11 +20,11 @@ public abstract class BaseEntity {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(updatable = false, nullable = false)
-  private Long id;
+  protected Long id;
 
   @CreatedDate
   @Column(name = "created_at", nullable = false)
-  private Instant createdAt;
+  protected Instant createdAt;
 
   // 업데이트 누락되어 있다 (직원 이력내역만 UPDATE 제외)
 }

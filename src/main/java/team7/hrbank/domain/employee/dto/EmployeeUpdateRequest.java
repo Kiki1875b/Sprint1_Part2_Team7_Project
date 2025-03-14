@@ -1,6 +1,6 @@
 package team7.hrbank.domain.employee.dto;
 
-import team7.hrbank.domain.employee.entity.EmployeeStatus;
+import team7.hrbank.domain.employee.EmployeeStatus;
 
 import java.time.LocalDate;
 
