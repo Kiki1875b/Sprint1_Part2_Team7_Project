@@ -48,8 +48,7 @@ CREATE TABLE change_log (
 
 CREATE TABLE backup_history (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    worker INET NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL,
+    worker VARCHAR(50) NOT NULL,
     start_time TIMESTAMPTZ NOT NULL,
     end_time TIMESTAMPTZ NULL,
     status VARCHAR(50) NOT NULL CHECK (status IN ('IN_PROGRESS', 'COMPLETED', 'FAILED', 'SKIPPED')),

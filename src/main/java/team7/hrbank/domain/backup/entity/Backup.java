@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.net.InetAddress;
 import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,14 @@ import team7.hrbank.domain.binary.BinaryContent;
 @EntityListeners(AuditingEntityListener.class)
 public class Backup {
 
+  public Backup(BinaryContent file, String worker, Instant startedAt){
+    this.file = file;
+    this.worker = worker;
+    this.startedAt = startedAt;
+    this.status = BackupStatus.COMPLETED;
+
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -39,7 +48,7 @@ public class Backup {
   @JoinColumn(name = "file_id")
   private BinaryContent file;
 
-  @Column(name = "operator", nullable = false, updatable = false)
+  @Column(name = "worker", nullable = false, updatable = false)
   private String worker;
 
   @CreatedDate
