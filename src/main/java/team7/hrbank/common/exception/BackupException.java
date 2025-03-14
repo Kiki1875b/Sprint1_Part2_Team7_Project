@@ -1,4 +1,4 @@
-package team7.hrbank.domain.backup.exception;
+package team7.hrbank.common.exception;
 
 public class BackupException extends RuntimeException {
 
