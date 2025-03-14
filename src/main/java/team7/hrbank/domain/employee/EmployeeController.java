@@ -29,12 +29,9 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<EmployeeDto> create(@RequestPart(value = "employee") EmployeeCreateRequest request,
                                               @RequestPart(value = "profile", required = false) MultipartFile profile) {
-        if (profile != null) {
-            // TODO: 이미지 처리 로직
-        }
 
         // 직원 생성 로직
-        EmployeeDto employeeDto = employeeService.create(request);
+        EmployeeDto employeeDto = employeeService.create(request, profile);
 
         return ResponseEntity.ok(employeeDto);
     }
@@ -72,18 +69,14 @@ public class EmployeeController {
 
     // 직원 수정
     @PatchMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id,
+    public ResponseEntity<EmployeeDto> update(@PathVariable Long id,
                                          @RequestPart(value = "employee") EmployeeUpdateRequest request,
                                          @RequestPart(value = "profile", required = false) MultipartFile profile) {
-        if (profile != null) {
-            // TODO: 이미지 사진 처리 로직
-        }
 
         // 직원 수정
+        EmployeeDto employeeDto = employeeService.updateById(id, request, profile);
 
-
-        // TODO: ResponseEntity<EmployeeDto> 반환으로 수정
-        return ResponseEntity.ok("직원 수정 성공");
+        return ResponseEntity.ok(employeeDto);
     }
 
     // 직원 삭제

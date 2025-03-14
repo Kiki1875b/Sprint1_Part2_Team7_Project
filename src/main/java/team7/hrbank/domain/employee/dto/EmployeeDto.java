@@ -32,7 +32,7 @@ public class EmployeeDto {
                 employee.getPosition(),
                 employee.getHireDate(),
                 employee.getStatus(),
-                1L  // TODO: binaryContent 추가 후 수정
+                employee.getProfile().getId()
         );
     }
 }

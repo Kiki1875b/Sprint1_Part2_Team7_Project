@@ -35,7 +35,7 @@ public class Employee extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "binary_content_id")
-    private BinaryContent profile;
+    private BinaryContent profile;  // 프로필 사진
 
     @Column(name = "employee_number", unique = true, nullable = false)
     private String employeeNumber;  // 사원번호
@@ -63,7 +63,8 @@ public class Employee extends BaseEntity {
 
     // 생성자
     // TODO: 생성자 인자로 departmentId 추가
-    public Employee(String employeeNumber, String name, String email, String position, LocalDate hireDate) {
+    public Employee(BinaryContent profile, String employeeNumber, String name, String email, String position, LocalDate hireDate) {
+        this.profile = profile;
         this.employeeNumber = employeeNumber;
         this.name = name;
         this.email = email;
@@ -100,6 +101,9 @@ public class Employee extends BaseEntity {
     public void updateStatus(EmployeeStatus status) {
         this.status = status;
     }
-    
-    // TODO: profileImageId 수정 추가
+
+    // 프로필 사진 수정
+    public void updateProfile(BinaryContent profile) {
+        this.profile = profile;
+    }
 }
