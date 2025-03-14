@@ -36,19 +36,20 @@ CREATE TABLE employees (
 
 CREATE TABLE employee_history (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    employee_number VARCHAR(50) NOT NULL,
+    employee_number VARCHAR(50) NULL, -- 논의 필요, employee 삭제시 동작
     type VARCHAR(20) NOT NULL CHECK (type IN ('직원 추가', '정보 수정', '직원 삭제')),
     details JSONB NULL,
     memo TEXT NULL,
     ip_address INET NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
-    CONSTRAINT fk_employee_history_employee FOREIGN KEY (employee_number) REFERENCES employees (employee_number) ON SET NULL
+    CONSTRAINT fk_employee_history_employee FOREIGN KEY (employee_number) REFERENCES employees (employee_number) ON delete SET NULL
 );
 
 
 CREATE TABLE backup_history (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     worker INET NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL,
     start_time TIMESTAMPTZ NOT NULL,
     end_time TIMESTAMPTZ NULL,
     status VARCHAR(50) NOT NULL CHECK (status IN ('진행중', '완료', '실패', '건너뜀')),
