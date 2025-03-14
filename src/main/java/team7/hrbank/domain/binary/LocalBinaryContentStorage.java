@@ -2,17 +2,13 @@ package team7.hrbank.domain.binary;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-import team7.hrbank.domain.employee.Employee;
 
-import javax.xml.transform.Source;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,26 +26,16 @@ public class LocalBinaryContentStorage {
         init();// 임시로
     }
 
-    public void put(byte[] content, Long id) {
+    public void put(byte[] content, Long id, String fileType) {
         try {
-            Files.write(resolvePath(id), content);
+            Files.write(resolvePath(id, fileType), content);
         } catch (Exception e) {
             throw new RuntimeException("파일 저장 실패", e);
         }
     }
 
-    public ResponseEntity<Resource> download(Long id) {
-        Path profilePath = resolvePath(id);
-        String fileType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
-        try {
-            String probedFileType = Files.probeContentType(profilePath);
-            if (!probedFileType.isBlank()) {
-                fileType = probedFileType;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+    public ResponseEntity<Resource> download(Long id, String fileType) {
+        Path profilePath = resolvePath(id, fileType);
         HttpHeaders headers = new HttpHeaders();
         headers.add(CONTENT_DISPOSITION, "attachment; filename= "+ profilePath.getFileName());
         headers.add(CONTENT_TYPE, fileType);
@@ -63,8 +49,8 @@ public class LocalBinaryContentStorage {
     /**
      * 편의
      */
-    private Path resolvePath(Long id) {
-        return root.resolve(id.toString());
+    private Path resolvePath(Long id, String fileType) {
+        return root.resolve(id.toString() + "." + fileType);
     }
 
     //루트 디렉토리를 초기화합니다.

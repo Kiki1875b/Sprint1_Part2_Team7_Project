@@ -15,9 +15,10 @@ public class BinaryController {
 
     private final LocalBinaryContentStorage localBinaryContentStorage;
     private final EmployeeRepository employeeRepository;
+    private final BinaryContentService binaryContentService;
 
     @GetMapping("/api/files/{id}/download")
     public ResponseEntity<Resource> downLoad(@PathVariable Long id) {
-        return localBinaryContentStorage.download(id);
+        return localBinaryContentStorage.download(id, binaryContentService.findFileTypeById(id));
     }
 }

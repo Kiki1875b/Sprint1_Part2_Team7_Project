@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import team7.hrbank.domain.binary.*;
 import team7.hrbank.domain.binary.dto.BinaryContentDto;
+import team7.hrbank.domain.binary.dto.BinaryMapper;
 
 import java.util.Optional;
 
@@ -22,6 +23,9 @@ public class basicBinary {
 
     @Autowired
     private LocalBinaryContentStorage localBinaryContentStorage;
+
+    @Autowired
+    private BinaryMapper binaryMapper;
 
     @Transactional
     @Test
