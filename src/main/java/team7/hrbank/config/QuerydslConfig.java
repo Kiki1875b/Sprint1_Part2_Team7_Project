@@ -1,4 +1,4 @@
-package team7.hrbank.common.config;
+package team7.hrbank.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
