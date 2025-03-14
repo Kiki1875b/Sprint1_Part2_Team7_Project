@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import team7.hrbank.domain.employee.dto.EmployeeCreateRequest;
 import team7.hrbank.domain.employee.dto.EmployeeUpdateRequest;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
@@ -38,8 +40,8 @@ public class EmployeeController {
                                        @RequestParam(required = false) String employeeNumber,
                                        @RequestParam(required = false) String departmentName,
                                        @RequestParam(required = false) String position,
-                                       @RequestParam(required = false) String hireDateFrom,
-                                       @RequestParam(required = false) String hireDateTo,
+                                       @RequestParam(required = false) LocalDate hireDateFrom,
+                                       @RequestParam(required = false) LocalDate hireDateTo,
                                        @RequestParam(required = false) EmployeeStatus status,
                                        @RequestParam(required = false) Long idAfter,
                                        @RequestParam(required = false) String cursor,

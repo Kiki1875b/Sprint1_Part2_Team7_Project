@@ -13,6 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import team7.hrbank.domain.base.BaseEntity;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -38,7 +39,7 @@ public class Employee extends BaseEntity {
     private String position;    // 직함
 
     @Column(name = "hire_date", nullable = false)
-    private Instant hireDate;   // 입사일
+    private LocalDate hireDate;   // 입사일
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -68,7 +69,7 @@ public class Employee extends BaseEntity {
     }
 
     // 입사일 수정
-    public void updateHireDate(Instant hireDate) {
+    public void updateHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 
