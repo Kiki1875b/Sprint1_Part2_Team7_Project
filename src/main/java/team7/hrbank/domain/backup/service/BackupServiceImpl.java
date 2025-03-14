@@ -1,5 +1,6 @@
 package team7.hrbank.domain.backup.service;
 
+import java.net.InetAddress;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,7 +43,7 @@ public class BackupServiceImpl implements BackupService{
         startedAtTo,
         idAfter,
         cursor,
-        size,
+        size + 1,
         sortField,
         sortDirection
     );
@@ -58,20 +59,15 @@ public class BackupServiceImpl implements BackupService{
       );
     }
 
-    List<Backup> nextPageCheck = backupRepository.findBackups(
-        worker,
-        status,
-        startedAtFrom,
-        startedAtTo,
-        backups.get(backups.size() - 1).getId(),  // 마지막 요소의 ID를 커서로 사용
-        null,  // 새로운 커서 기준 (추가 데이터 확인용)
-        1,  // 다음 데이터가 있는지만 확인하기 위해 1개만 조회
-        sortField,
-        sortDirection
-    );
 
-    boolean hasNext = !nextPageCheck.isEmpty();
+    boolean hasNext = backups.size() == size + 1;
+
+    if(hasNext){
+      backups.remove(size);
+    }
+
     Long nextIdAfter = backups.get(backups.size() - 1).getId();
+
     Instant nextCursor = backups.stream()
         .map(Backup::getStartedAt)
         .sorted(

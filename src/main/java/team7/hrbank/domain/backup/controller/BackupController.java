@@ -1,5 +1,7 @@
 package team7.hrbank.domain.backup.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -38,7 +40,17 @@ public class BackupController {
       @RequestParam(name = "size", required = false, defaultValue = "10") int size,
       @RequestParam(name = "sortField", required = false, defaultValue = "startedAt") String sortField,
       @RequestParam(name = "sortDirection", required = false, defaultValue = "DESC") String sortDirection
-      ){
+  ) {
+
+//    // TODO : 커스텀 정의, 예외 처리 필요
+//    InetAddress workerIp = null;
+//    if (worker != null) {
+//      try {
+//        workerIp = InetAddress.getByName(worker);
+//      } catch (UnknownHostException e) {
+//
+//      }
+//    }
 
     PageResponse<BackupDto> response = backupService.findBackupsOfCondition(
         worker,
@@ -57,14 +69,15 @@ public class BackupController {
 
   // 200, 400, 409, 500
   @PostMapping
-  public ResponseEntity<BackupDto> generateBackup(){
+  public ResponseEntity<BackupDto> generateBackup() {
     BackupDto response = backupService.startBackup();
     return ResponseEntity.ok(response);
   }
 
   // 200, 400, 500
   @GetMapping("/latest")
-  public ResponseEntity<BackupDto> getLatestBackup(@RequestParam(defaultValue = "COMPLETED", required = false, name = "status") BackupStatus status){
+  public ResponseEntity<BackupDto> getLatestBackup(
+      @RequestParam(defaultValue = "COMPLETED", required = false, name = "status") BackupStatus status) {
     BackupDto response = backupService.findLatestBackupByStatus(status);
     return ResponseEntity.ok(response);
   }
