@@ -8,7 +8,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 import team7.hrbank.domain.base.BaseEntity;
 
@@ -43,11 +42,23 @@ public class Employee extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private EmployeeStatus status;  // 상태(재직중, 휴직중, 퇴사)
+    private EmployeeStatus status;  // 상태(ACTIVE,ON_LEAVE, RESIGNED)
 
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Instant updatedAt;  // 수정일
+
+
+    // 생성자
+    // TODO: 생성자 인자로 departmentId 추가
+    public Employee(String employeeNumber, String name, String email, String position, LocalDate hireDate) {
+        this.employeeNumber = employeeNumber;
+        this.name = name;
+        this.email = email;
+        this.position = position;
+        this.hireDate = hireDate;
+        this.status = EmployeeStatus.ACTIVE;    // 직원 등록 시 상태는 ACTIVE(재직중)로 초기화
+    }
 
 
     // update 메서드
@@ -77,4 +88,6 @@ public class Employee extends BaseEntity {
     public void updateStatus(EmployeeStatus status) {
         this.status = status;
     }
+    
+    // TODO: profileImageId 수정 추가
 }

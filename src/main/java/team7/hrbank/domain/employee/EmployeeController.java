@@ -1,5 +1,6 @@
 package team7.hrbank.domain.employee;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,29 +10,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import team7.hrbank.domain.employee.dto.EmployeeCreateRequest;
+import team7.hrbank.domain.employee.dto.EmployeeDto;
 import team7.hrbank.domain.employee.dto.EmployeeUpdateRequest;
 
 import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/employees")
+@RequiredArgsConstructor
 public class EmployeeController {
+
+    private final EmployeeService employeeService;
 
     // 직원 등록
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody EmployeeCreateRequest employee,
-                                         @RequestParam(required = false) MultipartFile profile) {
+    public ResponseEntity<EmployeeDto> create(@RequestPart(value = "employee") EmployeeCreateRequest request,
+                                              @RequestPart(value = "profile", required = false) MultipartFile profile) {
         if (profile != null) {
-            // 이미지 사진 처리 로직
+            // TODO: 이미지 처리 로직
         }
 
         // 직원 생성 로직
+        EmployeeDto employeeDto = employeeService.create(request);
 
-        // TODO: ResponseEntity<EmployeeDto> 반환으로 수정
-        return ResponseEntity.ok("직원 등록 성공");
+        return ResponseEntity.ok(employeeDto);
     }
 
     // 직원 목록 조회
@@ -68,13 +74,14 @@ public class EmployeeController {
     // 직원 수정
     @PatchMapping("/{id}")
     public ResponseEntity<String> update(@PathVariable Long id,
-                                         @RequestBody EmployeeUpdateRequest employee,
-                                         @RequestParam(required = false) MultipartFile profile) {
+                                         @RequestPart(value = "employee") EmployeeUpdateRequest request,
+                                         @RequestPart(value = "profile", required = false) MultipartFile profile) {
         if (profile != null) {
-            // 이미지 사진 처리 로직
+            // TODO: 이미지 사진 처리 로직
         }
 
-        // 직원 수정 로직
+        // 직원 수정
+
 
         // TODO: ResponseEntity<EmployeeDto> 반환으로 수정
         return ResponseEntity.ok("직원 수정 성공");
