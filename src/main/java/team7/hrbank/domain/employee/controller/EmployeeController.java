@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import team7.hrbank.domain.employee.EmployeeService;
-import team7.hrbank.domain.employee.EmployeeStatus;
+import team7.hrbank.common.dto.PageResponse;
+import team7.hrbank.domain.employee.entity.EmployeeStatus;
 import team7.hrbank.domain.employee.dto.EmployeeCreateRequest;
 import team7.hrbank.domain.employee.dto.EmployeeDto;
 import team7.hrbank.domain.employee.dto.EmployeeUpdateRequest;
+import team7.hrbank.domain.employee.service.EmployeeService;
 
 import java.time.LocalDate;
 
@@ -40,7 +41,7 @@ public class EmployeeController {
 
     // 직원 목록 조회
     @GetMapping
-    public ResponseEntity<String> read(@RequestParam(required = false) String nameOrEmail,
+    public ResponseEntity<PageResponse> read(@RequestParam(required = false) String nameOrEmail,
                                        @RequestParam(required = false) String employeeNumber,
                                        @RequestParam(required = false) String departmentName,
                                        @RequestParam(required = false) String position,
@@ -54,9 +55,9 @@ public class EmployeeController {
                                        @RequestParam(defaultValue = "asc") String sortDirection) {
         
         // 직원 목록 조회 로직
+        PageResponse<EmployeeDto> pageResponse = employeeService.find(nameOrEmail, employeeNumber, departmentName, position, hireDateFrom, hireDateTo, status, idAfter, cursor, size, sortField, sortDirection);
 
-        // TODO: ResponseEntity<CursorPageResponseEmployeeDto> 반환으로 수정
-        return ResponseEntity.ok("직원 목록 조회 성공");
+        return ResponseEntity.ok(pageResponse);
     }
 
     // 직원 상세 조회

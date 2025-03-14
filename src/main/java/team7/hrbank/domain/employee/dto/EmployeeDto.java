@@ -2,11 +2,14 @@ package team7.hrbank.domain.employee.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team7.hrbank.domain.employee.Employee;
-import team7.hrbank.domain.employee.EmployeeStatus;
+import team7.hrbank.domain.employee.entity.Employee;
+import team7.hrbank.domain.employee.entity.EmployeeStatus;
 
 import java.time.LocalDate;
 
+// TODO: department 엔티티 완성 후
+//  record로 수정
+//  EmployeeMapper에서 fromEntity, fromEntityList 정의
 @Getter
 @AllArgsConstructor
 public class EmployeeDto {
