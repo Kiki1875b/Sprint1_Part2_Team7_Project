@@ -1,13 +1,11 @@
 package team7.hrbank.binary;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import team7.hrbank.domain.binary.*;
-import team7.hrbank.domain.employee.Employee;
+import team7.hrbank.domain.binary.dto.BinaryContentDto;
 
 import java.util.Optional;
 

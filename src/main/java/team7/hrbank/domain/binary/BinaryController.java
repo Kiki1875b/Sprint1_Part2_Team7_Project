@@ -18,8 +18,6 @@ public class BinaryController {
 
     @GetMapping("/api/files/{id}/download")
     public ResponseEntity<Resource> downLoad(@PathVariable Long id) {
-        Employee employee = employeeRepository.findByBinaryContent_Id(id)
-                .orElseThrow(() -> new RuntimeException("No employee found with binary content id: " + id));
-        return localBinaryContentStorage.download(id,employee);
+        return localBinaryContentStorage.download(id);
     }
 }

@@ -1,17 +1,17 @@
-package team7.hrbank.domain.binary;
+package team7.hrbank.domain.binary.dto;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.MapperConfig;
+import org.mapstruct.Mapping;
 import org.springframework.web.multipart.MultipartFile;
+import team7.hrbank.domain.binary.BinaryContent;
 
+import javax.management.ConstructorParameters;
 import java.io.IOException;
 import java.util.Optional;
 
-import static org.mapstruct.MappingInheritanceStrategy.*;
 
-
-@MapperConfig(mappingInheritanceStrategy = AUTO_INHERIT_ALL_FROM_CONFIG)
-@Mapper(componentModel = "spring")
+//@MapperConfig(mappingInheritanceStrategy = AUTO_INHERIT_ALL_FROM_CONFIG)
+@Mapper
 public interface BinaryMapper {
 
     default Optional<BinaryContentDto> convertFileToBinaryContent(MultipartFile file) {
@@ -26,9 +26,12 @@ public interface BinaryMapper {
         }
     }
 
+
     BinaryContent toEntity(BinaryContentDto binaryContentDtoSave);
 
-    // 필요할 떄 ㄱ
+    @Mapping(target = "bytes", ignore = true)
     BinaryContentDto toDto(BinaryContent binaryContent);
+
+    BinaryContentDto toDto(BinaryContent binaryContent, byte[] bytes);
 }
 

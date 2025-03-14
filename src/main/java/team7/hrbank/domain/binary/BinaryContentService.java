@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team7.hrbank.domain.binary.dto.BinaryContentDto;
+import team7.hrbank.domain.binary.dto.BinaryMapper;
 
 import java.util.List;
 
@@ -22,7 +24,6 @@ public class BinaryContentService {
     // Optional<BinaryContentDto> binaryContentDto = binaryMapper.convertFileToBinaryContent(file);
     // binaryContentDto.ifPresent((dto)->{ BinaryContentService.save ~~ });
     // + 확장자 체크 (동영상, pdf 등은 프로필로 불가능)
-
     public BinaryContent save(BinaryContentDto dto) {
         BinaryContent savedBinaryContent = binaryContentRepository.save(binaryMapper.toEntity(dto));
         localBinaryContentStorage.put(dto.bytes(), savedBinaryContent.getId());
