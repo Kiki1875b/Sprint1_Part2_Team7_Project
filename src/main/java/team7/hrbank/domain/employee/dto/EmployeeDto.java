@@ -2,8 +2,8 @@ package team7.hrbank.domain.employee.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import team7.hrbank.domain.employee.Employee;
-import team7.hrbank.domain.employee.EmployeeStatus;
+import team7.hrbank.domain.employee.entity.Employee;
+import team7.hrbank.domain.employee.entity.EmployeeStatus;
 
 import java.time.LocalDate;
 

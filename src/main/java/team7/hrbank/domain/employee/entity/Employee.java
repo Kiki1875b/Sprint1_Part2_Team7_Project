@@ -1,4 +1,4 @@
-package team7.hrbank.domain.employee;
+package team7.hrbank.domain.employee.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +24,13 @@ public class Employee extends BaseEntity {
     // TODO: Department, BinaryContent 엔티티 완료 시
     //  departmentId, profileImageId 추가
     //  직원 등록용 생성자 추가(이름, 이메일, 부서, 입사일, 프로필 이미지 필요)
+
+    // <<-- 임시 테스트용
+    @Column(name = "department_id", nullable = false)
+    private int departmentId = 1;
+    @Column(name = "binary_content_id")
+    private int profileImageId = 1;
+    // -->>
 
     @Column(name = "employee_number", unique = true, nullable = false)
     private String employeeNumber;  // 사원번호
