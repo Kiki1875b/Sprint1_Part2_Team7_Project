@@ -9,6 +9,8 @@ import jakarta.persistence.MappedSuperclass;
 import java.time.Instant;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @MappedSuperclass
@@ -16,12 +18,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(updatable = false, nullable = false)
   private Long id;
 
   @CreatedDate
   @Column(name = "created_at", nullable = false)
   private Instant createdAt;
+
+  // 업데이트 누락되어 있다 (직원 이력내역만 UPDATE 제외)
 }
