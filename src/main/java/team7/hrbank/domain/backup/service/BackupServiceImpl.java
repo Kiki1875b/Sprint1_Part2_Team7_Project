@@ -5,16 +5,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import team7.hrbank.common.dto.PageResponse;
 import team7.hrbank.domain.backup.dto.BackupDto;
 import team7.hrbank.domain.backup.entity.Backup;
 import team7.hrbank.domain.backup.entity.BackupStatus;
-import team7.hrbank.domain.backup.exception.BackupException;
+import team7.hrbank.common.exception.BackupException;
 import team7.hrbank.domain.backup.mapper.BackupMapper;
 import team7.hrbank.domain.backup.repository.BackupRepository;
 

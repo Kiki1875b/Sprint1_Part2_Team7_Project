@@ -6,9 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.Instant;
 import lombok.AccessLevel;
@@ -17,6 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import team7.hrbank.domain.binary.BinaryContent;
 
 
 @Entity
@@ -31,7 +35,10 @@ public class Backup {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  // TODO : FileId 추가 -> BinaryContents 엔티티 완료시
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "file_id")
+  private BinaryContent file;
+
   @Column(name = "operator", nullable = false, updatable = false)
   private String worker;
 
@@ -52,5 +59,9 @@ public class Backup {
 
   public void endBackup() {
     endedAt = Instant.now();
+  }
+
+  public void addFile(BinaryContent file) {
+    this.file = file;
   }
 }
