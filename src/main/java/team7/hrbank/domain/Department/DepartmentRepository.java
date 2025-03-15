@@ -60,5 +60,5 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
                                                 Pageable pageable);
 
     //부서 아이디로 단건 조회
-    Department findById(long id);
+    Department findById(Integer id);
 }

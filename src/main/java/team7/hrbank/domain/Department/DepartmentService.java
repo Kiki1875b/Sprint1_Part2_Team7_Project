@@ -61,8 +61,7 @@ public class DepartmentService {
         return new DepartmentResponse(department);
     }
 
-    /*
-    mployeeRepository 이용하므로 우선 주석처리
+    // employeeRepository 이용하므로 우선 주석처리
     //부서 삭제 메서드
     @Transactional
     public void deleteDepartment(Long id) {
@@ -70,13 +69,12 @@ public class DepartmentService {
         Department department = departmentRepository.findById(id)
                 .orElseThrow(() -> new DepartmentNotFoundException("부서가 존재하지 않습니다."));
         //부서 내 소속직원 존재여부 체크
-        if (employeeRepository.existByDepartment(department.getId())){
-            throw  new EmployeeExistsInDepartmentException("소속된 직원이 존재하는 부서는 삭제할 수 없습니다. 직원 소속 변경 후 다시 시도해주세요.");
-        }
+//        if (employeeRepository.existByDepartment(department.getId())){
+//            throw  new EmployeeExistsInDepartmentException("소속된 직원이 존재하는 부서는 삭제할 수 없습니다. 직원 소속 변경 후 다시 시도해주세요.");
+//        }
         //부서 삭제
         departmentRepository.delete(department);
     }
-    */
 
     //부서 조회 메서드
     public DepartmentListResponse getDepartments(String nameOrDescription, Integer idAfter, String cursor, Integer size, String sortField, String sortDirection) {

@@ -37,7 +37,7 @@ public class DepartmentController {
     // 부서 삭제 API
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteDepartment(@PathVariable("id") Long id) {
-        //departmentService.deleteDepartment(id);
+        departmentService.deleteDepartment(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body("부서가 삭제되었습니다");
