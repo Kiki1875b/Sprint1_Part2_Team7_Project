@@ -19,7 +19,7 @@ import org.hibernate.type.SqlTypes;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import team7.hrbank.domain.base.BaseEntity;
 import team7.hrbank.domain.change_log.dto.DiffDto;
-import team7.hrbank.domain.employee.Employee;
+import team7.hrbank.domain.employee.entity.Employee;
 
 @Getter
 @Entity

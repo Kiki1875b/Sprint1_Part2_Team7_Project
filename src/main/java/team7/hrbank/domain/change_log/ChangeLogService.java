@@ -12,9 +12,13 @@ import org.springframework.stereotype.Service;
 import team7.hrbank.domain.change_log.dto.ChangeLogDto;
 import team7.hrbank.domain.change_log.dto.DiffDto;
 import team7.hrbank.domain.change_log.entity.ChangeLog;
+import team7.hrbank.domain.change_log.entity.ChangeLogType;
+import team7.hrbank.domain.employee.repository.EmployeeRepository;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import team7.hrbank.domain.change_log.entity.ChangeLogType;
+
 
 
 @Service
