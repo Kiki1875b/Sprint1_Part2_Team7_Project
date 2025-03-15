@@ -13,25 +13,52 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     //이름으로 부서 존재여부 확인
     boolean existsByName(String name); // 부서 이름 중복 여부 확인
 
-    //검색어 유무에 따라 전체 or 필터링된 부서목록 반환
-    @Query("SELECT d FROM Department d " +
-            "WHERE (:nameOrDescription IS NULL OR " + //검색어가 입력되지 않았거나
-            "LOWER(d.name) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')) OR " +
-            "LOWER(d.description) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')))")
+    @Query("""
+    SELECT d 
+    FROM Department d
+    WHERE (:nameOrDescription IS NULL OR :nameOrDescription = '' 
+           OR LOWER(d.name) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')) 
+           OR LOWER(d.description) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')))
+    """)
     Page<Department> findByCriteria(@Param("nameOrDescription") String nameOrDescription,
                                     Pageable pageable);
 
-    //이전페이지 마지막 Id 이후 Id를 가진 요소 중 검색어 유무에 따라 전체 or 필터링된 부서목록 반환
-    @Query("SELECT d FROM Department d " +
-            "WHERE d.id > :lastId AND " +
-            "(:nameOrDescription IS NULL OR " + //검색어가 입력되지 않았거나
-            "LOWER(d.name) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')) OR " +
-            "LOWER(d.description) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')))")
-    Page<Department> findByCriteriaWithLastId(@Param("nameOrDescription") String nameOrDescription,
-                                              @Param("lastId") Integer lastId,
-                                              Pageable pageable);
+    @Query("""
+    SELECT d 
+    FROM Department d
+    WHERE (:nameOrDescription IS NULL OR :nameOrDescription = '' 
+           OR LOWER(d.name) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')) 
+           OR LOWER(d.description) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')))
+      AND (:idAfter IS NULL OR d.id > :idAfter)
+    """)
+    Page<Department> findByIdAfter(@Param("nameOrDescription") String nameOrDescription,
+                                   @Param("idAfter") Integer idAfter,
+                                   Pageable pageable);
+
+    @Query("""
+    SELECT d 
+    FROM Department d
+    WHERE (:nameOrDescription IS NULL OR :nameOrDescription = '' 
+           OR LOWER(d.name) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')) 
+           OR LOWER(d.description) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')))
+      AND (:name IS NULL OR d.name > :name)
+    """)
+    Page<Department> findByNameAfter(@Param("nameOrDescription") String nameOrDescription,
+                                     @Param("name") String name,
+                                     Pageable pageable);
+
+    @Query("""
+    SELECT d 
+    FROM Department d
+    WHERE (:nameOrDescription IS NULL OR :nameOrDescription = '' 
+           OR LOWER(d.name) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')) 
+           OR LOWER(d.description) LIKE LOWER(CONCAT('%', :nameOrDescription, '%')))
+      AND (:establishedDate IS NULL OR d.establishedDate > :establishedDate)
+    """)
+    Page<Department> findByEstablishedDateAfter(@Param("nameOrDescription") String nameOrDescription,
+                                                @Param("establishedDate") String establishedDate,
+                                                Pageable pageable);
 
     //부서 아이디로 단건 조회
     Department findById(long id);
-
 }
