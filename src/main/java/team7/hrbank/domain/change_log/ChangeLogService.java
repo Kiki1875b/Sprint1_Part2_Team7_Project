@@ -2,6 +2,7 @@ package team7.hrbank.domain.change_log;
 
 
 import jakarta.transaction.Transactional;
+import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,14 +15,14 @@ import team7.hrbank.domain.change_log.entity.ChangeLog;
 import java.time.LocalDateTime;
 import java.util.List;
 import team7.hrbank.domain.change_log.entity.ChangeLogType;
-import team7.hrbank.domain.employee.EmployeeRepository;
+
 
 @Service
 @RequiredArgsConstructor
 public class ChangeLogService {
 
   private final ChangeLogRepository changeLogRepository;
-  private final EmployeeRepository employeeRepository;
+  // private final EmployeeRepository employeeRepository;
 
 //Todo - Employee서비스의 각 사용자 생성, 수정, 삭제에서  ChangeLogService.save 메서드 호출시 시 변경사항 확인 후 회원수정로그 등록.
 
@@ -71,4 +72,10 @@ public class ChangeLogService {
     return changeLog.getDetails();
   }
 
+
+  public Instant getLatestChannelLogUpdateTime(){
+//    ChangeLog latestLog = changeLogRepository.findFirstByCreatedAtOrderByCreatedAtDesc().orElse(null);
+//    return latestLog == null ? Instant.EPOCH : latestLog.getCreatedAt();
+    return null;
+  }
 }
