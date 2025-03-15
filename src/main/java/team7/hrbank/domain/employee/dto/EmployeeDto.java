@@ -13,16 +13,16 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 public class EmployeeDto {
-    Long id;
-    String name;
-    String email;
-    String employeeNumber;
-    Long departmentId;
-    String departmentName;
-    String position;
-    LocalDate hireDate;
-    EmployeeStatus status;
-    Long profileImageId;
+    private Long id;
+    private String name;
+    private String email;
+    private String employeeNumber;
+    private Long departmentId;
+    private String departmentName;
+    private String position;
+    private LocalDate hireDate;
+    private EmployeeStatus status;
+    private Long profileImageId;
 
     public static EmployeeDto fromEntity(Employee employee) {
         return new EmployeeDto(

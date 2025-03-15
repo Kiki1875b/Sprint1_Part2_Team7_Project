@@ -30,11 +30,11 @@ public class EmployeeController {
 
     // 직원 등록
     @PostMapping
-    public ResponseEntity<EmployeeDto> create(@RequestPart(value = "employee") EmployeeCreateRequest request,
+    public ResponseEntity<EmployeeDto> create(@RequestPart(value = "employee") EmployeeCreateRequest employee,
                                               @RequestPart(value = "profile", required = false) MultipartFile profile) {
 
         // 직원 생성 로직
-        EmployeeDto employeeDto = employeeService.create(request, profile);
+        EmployeeDto employeeDto = employeeService.create(employee, profile);
 
         return ResponseEntity.ok(employeeDto);
     }
@@ -73,11 +73,11 @@ public class EmployeeController {
     // 직원 수정
     @PatchMapping("/{id}")
     public ResponseEntity<EmployeeDto> update(@PathVariable Long id,
-                                         @RequestPart(value = "employee") EmployeeUpdateRequest request,
+                                         @RequestPart(value = "employee") EmployeeUpdateRequest employee,
                                          @RequestPart(value = "profile", required = false) MultipartFile profile) {
 
         // 직원 수정 로직
-        EmployeeDto employeeDto = employeeService.updateById(id, request, profile);
+        EmployeeDto employeeDto = employeeService.updateById(id, employee, profile);
 
         return ResponseEntity.ok(employeeDto);
     }
