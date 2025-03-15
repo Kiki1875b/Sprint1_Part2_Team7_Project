@@ -93,8 +93,7 @@ public class BackupServiceImpl implements BackupService {
     Instant latestChangeLogTime = changeLogService.getLatestChannelLogUpdateTime();
 
     // 가장 최근 Backup 시간이 가장 최근 ChangeLog 보다 크다면 변경사항이 없다는 뜻. Instant.EPOCH 비교에 대해선 좀 더 생각
-    if (latestBackupTime.getNano() > latestChangeLogTime.getNano()
-        && latestBackupTime != Instant.EPOCH) {
+    if (latestBackupTime.isAfter(latestChangeLogTime) && !latestBackupTime.equals(Instant.EPOCH)) {
       Backup backup = backupRepository.save(new Backup(Instant.now(), BackupStatus.SKIPPED));
       return backupMapper.fromEntity(backup);
     }
@@ -102,7 +101,8 @@ public class BackupServiceImpl implements BackupService {
     Backup backup = backupRepository.save(new Backup(Instant.now(), BackupStatus.IN_PROGRESS));
     em.flush();
 
-    // 여기 작업
+    // TODO : EMPLYEE 도메인 완료시 나머지 로직
+
 
     return null;
   }
@@ -119,4 +119,6 @@ public class BackupServiceImpl implements BackupService {
     Backup latestBackup = backupRepository.findFirstByOrderByStartedAtDesc().orElse(null);
     return latestBackup == null ? Instant.EPOCH : latestBackup.getStartedAt();
   }
+
+
 }

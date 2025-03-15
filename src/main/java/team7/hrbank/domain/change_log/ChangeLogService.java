@@ -74,8 +74,7 @@ public class ChangeLogService {
 
 
   public Instant getLatestChannelLogUpdateTime(){
-//    ChangeLog latestLog = changeLogRepository.findFirstByCreatedAtOrderByCreatedAtDesc().orElse(null);
-//    return latestLog == null ? Instant.EPOCH : latestLog.getCreatedAt();
-    return null;
+    ChangeLog latestLog = changeLogRepository.findFirstByOrderByCreatedAtDesc().orElse(null);
+    return latestLog == null ? Instant.EPOCH : latestLog.getCreatedAt();
   }
 }
